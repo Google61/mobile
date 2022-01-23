@@ -1509,13 +1509,13 @@ bool os::dll_address_to_library_name(address addr, char* buf,
   data.fname = buf;
   data.buflen = buflen;
   data.base = NULL;
-  int rslt = dl_iterate_phdr(address_to_library_name_callback, (void *)&data); */
+  int rslt = dl_iterate_phdr(address_to_library_name_callback, (void *)&data);
 
   if (rslt) {
     // buf already contains library name
     if (offset) *offset = addr - data.base;
     return true;
-  }
+  } */
   if (dladdr((void*)addr, &dlinfo) != 0) {
     if (dlinfo.dli_fname != NULL) {
       jio_snprintf(buf, buflen, "%s", dlinfo.dli_fname);
