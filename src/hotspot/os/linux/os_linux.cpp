@@ -1505,11 +1505,11 @@ bool os::dll_address_to_library_name(address addr, char* buf,
   // we iterate through the program headers of all loaded libraries to find
   // out which library 'addr' really belongs to. This workaround can be
   // removed once the minimum requirement for glibc is moved to 2.3.x.
-  data.addr = addr;
+  /* data.addr = addr;
   data.fname = buf;
   data.buflen = buflen;
   data.base = NULL;
-  int rslt = dl_iterate_phdr(address_to_library_name_callback, (void *)&data);
+  int rslt = dl_iterate_phdr(address_to_library_name_callback, (void *)&data); */
 
   if (rslt) {
     // buf already contains library name
