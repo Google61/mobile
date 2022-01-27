@@ -4994,7 +4994,7 @@ int os::open(const char *path, int oflag, int mode) {
   oflag |= O_CLOEXEC;
 #endif
 
-  int fd = ::open64(path, oflag, mode);
+  int fd = ::open(path, oflag, mode);
   if (fd == -1) return -1;
 
   //If the open succeeded, the file might still be a directory
@@ -5040,7 +5040,7 @@ int os::create_binary_file(const char* path, bool rewrite_existing) {
   if (!rewrite_existing) {
     oflags |= O_EXCL;
   }
-  return ::open64(path, oflags, S_IREAD | S_IWRITE);
+  return ::open(path, oflags, S_IREAD | S_IWRITE);
 }
 
 // return current position of file pointer
