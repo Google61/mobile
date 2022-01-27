@@ -57,9 +57,10 @@ Java_sun_nio_ch_EPoll_dataOffset(JNIEnv* env, jclass clazz)
 
 JNIEXPORT jint JNICALL
 Java_sun_nio_ch_EPoll_create(JNIEnv *env, jclass clazz) {
-    int epfd = epoll_create1(EPOLL_CLOEXEC);
+    /* size hint not used in modern kernels */
+    int epfd = epoll_create(256);
     if (epfd < 0) {
-        JNU_ThrowIOExceptionWithLastError(env, "epoll_create1 failed");
+        JNU_ThrowIOExceptionWithLastError(env, "epoll_create failed");
     }
     return epfd;
 }
