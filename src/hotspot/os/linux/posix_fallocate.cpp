@@ -30,11 +30,13 @@
 
 #include "bionic/ErrnoRestorer.h"
 
+#if defined(__arm__)
 // libc/bionic/legacy_32_bit_support.cpp
 // There is no fallocate for 32-bit off_t, so we need to widen and call fallocate64.
 int fallocate(int fd, int mode, off_t offset, off_t length) {
   return fallocate64(fd, mode, static_cast<off64_t>(offset), static_cast<off64_t>(length));
 }
+#endif
 
 int posix_fallocate(int fd, off_t offset, off_t length) {
   ErrnoRestorer errno_restorer;
