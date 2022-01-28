@@ -8,7 +8,7 @@ ENTRY(fallocate)
     jb      1f
     negl    %eax
     movl    %eax, %edi
-    call    __set_errno
+    call    __set_errno_internal
     orq     $-1, %rax
 1:
     ret
