@@ -42,7 +42,7 @@
 // hide __set_errno for old NDK apps.
 
 // This one is for internal use only and used by both LP32 and LP64 assembler.
-extern "C" __LIBC_HIDDEN__ long __set_errno_internal(int n) {
+extern "C" long __set_errno_internal(int n) {
   errno = n;
   return -1;
 }
