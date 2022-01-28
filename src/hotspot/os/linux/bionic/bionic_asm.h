@@ -39,15 +39,14 @@
 #define __bionic_asm_function_type @function
 #define __bionic_asm_custom_note_gnu_section()
 
-// FIXME: split cpu-dependent files (.S) following openjdk structure
 #if defined(__aarch64__)
-//#include "bionic_asm_arm64.h"
+#include "bionic_asm_arm64.h"
 #elif defined(__arm__)
 #include "bionic_asm_arm.h"
 #elif defined(__i386__)
-//#include "bionic_asm_x86.h"
+#include "bionic_asm_x86.h"
 #elif defined(__x86_64__)
-//#include "bionic_asm_x86_64.h"
+#include "bionic_asm_x86_64.h"
 #endif
 
 #define ENTRY_NO_DWARF(f) \
