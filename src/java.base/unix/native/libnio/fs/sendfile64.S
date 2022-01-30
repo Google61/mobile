@@ -6,5 +6,5 @@
 #elif defined(__i386__)
 #include "sendfile64.S.x86"
 #elif defined(__x86_64__)
-#include "sendfile64.S.x86_64.h"
+#include "sendfile64.S.x86_64"
 #endif
