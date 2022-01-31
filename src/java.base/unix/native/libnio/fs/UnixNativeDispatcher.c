@@ -65,12 +65,12 @@
 #define statvfs64 statvfs
 #endif
 
-#define open64 open
+//#define open64 open
 #define fstat64 fstat
 #define lstat64 lstat
 #define readdir64 readdir
 #endif
-
+#define open64 open
 #include "jni.h"
 #include "jni_util.h"
 #include "jlong.h"
