@@ -28,7 +28,7 @@
 
 #pragma once
 
-#include <pthread.h>
+#include "pthread.h"
 #include <stdatomic.h>
 
 #if __has_feature(hwaddress_sanitizer)
