@@ -173,22 +173,22 @@ struct ThreadMapping {
   char* stack_top;
 };
 
-__LIBC_HIDDEN__ void __init_tcb(bionic_tcb* tcb, pthread_internal_t* thread);
-__LIBC_HIDDEN__ void __init_tcb_stack_guard(bionic_tcb* tcb);
-__LIBC_HIDDEN__ void __init_tcb_dtv(bionic_tcb* tcb);
-__LIBC_HIDDEN__ void __init_bionic_tls_ptrs(bionic_tcb* tcb, bionic_tls* tls);
-__LIBC_HIDDEN__ bionic_tls* __allocate_temp_bionic_tls();
-__LIBC_HIDDEN__ void __free_temp_bionic_tls(bionic_tls* tls);
-__LIBC_HIDDEN__ void __init_additional_stacks(pthread_internal_t*);
-__LIBC_HIDDEN__ int __init_thread(pthread_internal_t* thread);
-__LIBC_HIDDEN__ ThreadMapping __allocate_thread_mapping(size_t stack_size, size_t stack_guard_size);
-__LIBC_HIDDEN__ void __set_stack_and_tls_vma_name(bool is_main_thread);
+void __init_tcb(bionic_tcb* tcb, pthread_internal_t* thread);
+void __init_tcb_stack_guard(bionic_tcb* tcb);
+void __init_tcb_dtv(bionic_tcb* tcb);
+void __init_bionic_tls_ptrs(bionic_tcb* tcb, bionic_tls* tls);
+bionic_tls* __allocate_temp_bionic_tls();
+void __free_temp_bionic_tls(bionic_tls* tls);
+void __init_additional_stacks(pthread_internal_t*);
+int __init_thread(pthread_internal_t* thread);
+ThreadMapping __allocate_thread_mapping(size_t stack_size, size_t stack_guard_size);
+void __set_stack_and_tls_vma_name(bool is_main_thread);
 
-__LIBC_HIDDEN__ pthread_t __pthread_internal_add(pthread_internal_t* thread);
-__LIBC_HIDDEN__ pthread_internal_t* __pthread_internal_find(pthread_t pthread_id, const char* caller);
-__LIBC_HIDDEN__ pid_t __pthread_internal_gettid(pthread_t pthread_id, const char* caller);
-__LIBC_HIDDEN__ void __pthread_internal_remove(pthread_internal_t* thread);
-__LIBC_HIDDEN__ void __pthread_internal_remove_and_free(pthread_internal_t* thread);
+pthread_t __pthread_internal_add(pthread_internal_t* thread);
+pthread_internal_t* __pthread_internal_find(pthread_t pthread_id, const char* caller);
+pid_t __pthread_internal_gettid(pthread_t pthread_id, const char* caller);
+void __pthread_internal_remove(pthread_internal_t* thread);
+void __pthread_internal_remove_and_free(pthread_internal_t* thread);
 
 static inline __always_inline bionic_tcb* __get_bionic_tcb() {
   return reinterpret_cast<bionic_tcb*>(&__get_tls()[MIN_TLS_SLOT]);
@@ -214,7 +214,7 @@ static inline void __set_tcb_dtv(bionic_tcb* tcb, TlsDtv* val) {
 
 extern "C" __LIBC_HIDDEN__ int __set_tls(void* ptr);
 
-__LIBC_HIDDEN__ void pthread_key_clean_all(void);
+void pthread_key_clean_all(void);
 
 // Address space is precious on LP32, so use the minimum unit: one page.
 // On LP64, we could use more but there's no obvious advantage to doing
@@ -244,9 +244,9 @@ __LIBC_HIDDEN__ void pthread_key_clean_all(void);
 #define SIGNAL_STACK_SIZE (SIGNAL_STACK_SIZE_WITHOUT_GUARD + PTHREAD_GUARD_SIZE)
 
 // Needed by fork.
-__LIBC_HIDDEN__ extern void __bionic_atfork_run_prepare();
-__LIBC_HIDDEN__ extern void __bionic_atfork_run_child();
-__LIBC_HIDDEN__ extern void __bionic_atfork_run_parent();
+extern void __bionic_atfork_run_prepare();
+extern void __bionic_atfork_run_child();
+extern void __bionic_atfork_run_parent();
 
 extern "C" bool android_run_on_all_threads(bool (*func)(void*), void* arg);
 
