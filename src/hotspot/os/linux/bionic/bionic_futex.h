@@ -36,9 +36,12 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 
+#define	__predict_true(exp)	__builtin_expect((exp) != 0, 1)
+#define	__predict_false(exp)	__builtin_expect((exp) != 0, 0)
+
 struct timespec;
 
-static inline __always_inline int __futex(volatile void* ftx, int op, int value,
+static inline int __futex(volatile void* ftx, int op, int value,
                                           const timespec* timeout, int bitset) {
   // Our generated syscall assembler sets errno, but our callers (pthread functions) don't want to.
   int saved_errno = errno;
