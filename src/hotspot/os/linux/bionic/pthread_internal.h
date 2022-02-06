@@ -28,7 +28,7 @@
 
 #pragma once
 
-#include "pthread.h"
+#include <pthread.h>
 #include <stdatomic.h>
 
 #if __has_feature(hwaddress_sanitizer)
@@ -41,6 +41,14 @@
 #include "bionic_elf_tls.h"
 #include "bionic_lock.h"
 #include "bionic_tls.h"
+
+typedef void (*__pthread_cleanup_func_t)(void*);
+
+typedef struct __pthread_cleanup_t {
+  struct __pthread_cleanup_t*   __cleanup_prev;
+  __pthread_cleanup_func_t      __cleanup_routine;
+  void*                         __cleanup_arg;
+} __pthread_cleanup_t;
 
 // Has the thread been detached by a pthread_join or pthread_detach call?
 #define PTHREAD_ATTR_FLAG_DETACHED 0x00000001
