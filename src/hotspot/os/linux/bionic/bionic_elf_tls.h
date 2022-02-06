@@ -34,7 +34,7 @@
 #include <stdint.h>
 #include <sys/cdefs.h>
 
-__LIBC_HIDDEN__ extern _Atomic(size_t) __libc_tls_generation_copy;
+extern _Atomic(size_t) __libc_tls_generation_copy;
 
 struct TlsSegment {
   size_t size = 0;
@@ -43,10 +43,10 @@ struct TlsSegment {
   size_t init_size = 0;
 };
 
-__LIBC_HIDDEN__ bool __bionic_get_tls_segment(const ElfW(Phdr)* phdr_table, size_t phdr_count,
+bool __bionic_get_tls_segment(const ElfW(Phdr)* phdr_table, size_t phdr_count,
                                               ElfW(Addr) load_bias, TlsSegment* out);
 
-__LIBC_HIDDEN__ bool __bionic_check_tls_alignment(size_t* alignment);
+bool __bionic_check_tls_alignment(size_t* alignment);
 
 struct StaticTlsLayout {
   constexpr StaticTlsLayout() {}
