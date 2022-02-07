@@ -42,6 +42,8 @@
 #include "bionic_lock.h"
 #include "bionic_tls.h"
 
+// only when building for host(?)
+#if defined(__x86_64__)
 typedef struct { unsigned long __bits[64/LONG_BIT]; } sigset64_t;
 
 typedef void (*__pthread_cleanup_func_t)(void*);
@@ -51,6 +53,7 @@ typedef struct __pthread_cleanup_t {
   __pthread_cleanup_func_t      __cleanup_routine;
   void*                         __cleanup_arg;
 } __pthread_cleanup_t;
+#endif
 
 // Has the thread been detached by a pthread_join or pthread_detach call?
 #define PTHREAD_ATTR_FLAG_DETACHED 0x00000001
