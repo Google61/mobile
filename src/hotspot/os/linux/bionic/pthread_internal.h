@@ -42,7 +42,7 @@
 #include "bionic_lock.h"
 #include "bionic_tls.h"
 
-typedef struct { unsigned long __bits[_KERNEL__NSIG/LONG_BIT]; } sigset64_t;
+typedef struct { unsigned long __bits[64/LONG_BIT]; } sigset64_t;
 
 typedef void (*__pthread_cleanup_func_t)(void*);
 
