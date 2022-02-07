@@ -49,11 +49,6 @@
 #include "bionic_asm_x86_64.h"
 #endif
 
-extern "C" static __inline long __set_errno_internal(int n) {
-  errno = n;
-  return -1;
-}
-
 #define ENTRY_NO_DWARF(f) \
     .text; \
     .globl f; \
