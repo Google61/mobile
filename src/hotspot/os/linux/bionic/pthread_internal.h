@@ -42,6 +42,8 @@
 #include "bionic_lock.h"
 #include "bionic_tls.h"
 
+typedef struct { unsigned long __bits[_KERNEL__NSIG/LONG_BIT]; } sigset64_t;
+
 typedef void (*__pthread_cleanup_func_t)(void*);
 
 typedef struct __pthread_cleanup_t {
@@ -198,20 +200,20 @@ pid_t __pthread_internal_gettid(pthread_t pthread_id, const char* caller);
 void __pthread_internal_remove(pthread_internal_t* thread);
 void __pthread_internal_remove_and_free(pthread_internal_t* thread);
 
-static inline __always_inline bionic_tcb* __get_bionic_tcb() {
+static inline bionic_tcb* __get_bionic_tcb() {
   return reinterpret_cast<bionic_tcb*>(&__get_tls()[MIN_TLS_SLOT]);
 }
 
 // Make __get_thread() inlined for performance reason. See http://b/19825434.
-static inline __always_inline pthread_internal_t* __get_thread() {
+static inline pthread_internal_t* __get_thread() {
   return static_cast<pthread_internal_t*>(__get_tls()[TLS_SLOT_THREAD_ID]);
 }
 
-static inline __always_inline bionic_tls& __get_bionic_tls() {
+static inline bionic_tls& __get_bionic_tls() {
   return *static_cast<bionic_tls*>(__get_tls()[TLS_SLOT_BIONIC_TLS]);
 }
 
-static inline __always_inline TlsDtv* __get_tcb_dtv(bionic_tcb* tcb) {
+static inline TlsDtv* __get_tcb_dtv(bionic_tcb* tcb) {
   uintptr_t dtv_slot = reinterpret_cast<uintptr_t>(tcb->tls_slot(TLS_SLOT_DTV));
   return reinterpret_cast<TlsDtv*>(dtv_slot - offsetof(TlsDtv, generation));
 }
@@ -220,7 +222,7 @@ static inline void __set_tcb_dtv(bionic_tcb* tcb, TlsDtv* val) {
   tcb->tls_slot(TLS_SLOT_DTV) = &val->generation;
 }
 
-extern "C" __LIBC_HIDDEN__ int __set_tls(void* ptr);
+extern "C" int __set_tls(void* ptr);
 
 void pthread_key_clean_all(void);
 
